@@ -1,3 +1,11 @@
+import streamlit as st
+import streamlit.components.v1 as components
+
+# 設定 Streamlit 網頁標題
+st.set_page_config(page_title="關山親水公園導覽", layout="centered")
+
+# 將 HTML 與 CSS 包裝成一個多行字串 (使用三個引號)
+app_html = """
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -6,7 +14,7 @@
     <title>關山親水公園導覽</title>
     <style>
         :root {
-            --primary-color: #2E8B57; /* 海洋綠，符合自然主題 */
+            --primary-color: #2E8B57;
             --bg-color: #F4F7F6;
             --card-bg: #FFFFFF;
             --text-main: #333333;
@@ -23,7 +31,6 @@
             justify-content: center;
         }
 
-        /* 模擬手機螢幕寬度 */
         .app-container {
             width: 100%;
             max-width: 414px; 
@@ -33,7 +40,6 @@
             padding-bottom: 30px;
         }
 
-        /* 頂部橫幅 */
         .header-image {
             width: 100%;
             height: 220px;
@@ -61,7 +67,6 @@
             color: var(--primary-color);
         }
 
-        /* 資訊卡片清單 */
         .info-list {
             padding: 0 20px;
             display: flex;
@@ -165,3 +170,7 @@
 
 </body>
 </html>
+"""
+
+# 使用 Streamlit components 將 HTML 渲染出來，並設定適當的高度
+components.html(app_html, height=850, scrolling=True)
