@@ -1,170 +1,139 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# 設定 Streamlit 網頁標題
+# 設定 Streamlit 頁面配置
 st.set_page_config(page_title="關山親水公園導覽", layout="centered")
 
-# 將 HTML 與 CSS 包裝成一個多行字串 (使用三個引號)
+# 將 HTML、CSS 與圖片整合
+# 這裡使用您生成的四張獨立圖片網址
 app_html = """
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>關山親水公園導覽</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
-            --primary-color: #2E8B57;
-            --bg-color: #F4F7F6;
+            --primary: #2E8B57;
+            --bg: #F4F7F6;
             --card-bg: #FFFFFF;
-            --text-main: #333333;
-            --text-sub: #666666;
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: var(--bg-color);
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto;
+            background-color: var(--bg);
             margin: 0;
-            padding: 0;
-            color: var(--text-main);
             display: flex;
             justify-content: center;
         }
 
         .app-container {
             width: 100%;
-            max-width: 414px; 
-            background-color: var(--bg-color);
+            max-width: 414px;
+            background-color: var(--bg);
             min-height: 100vh;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
             padding-bottom: 30px;
         }
 
-        .header-image {
-            width: 100%;
-            height: 220px;
-            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .header {
+            background: linear-gradient(135deg, #74ebd5, #2E8B57);
             color: white;
-            font-size: 24px;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 22px;
             font-weight: bold;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
-            margin-bottom: 20px;
         }
 
-        .title-section {
-            padding: 0 20px;
-            margin-bottom: 20px;
-        }
-
-        .title-section h1 {
-            margin: 0;
-            font-size: 26px;
-            color: var(--primary-color);
-        }
-
-        .info-list {
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            font-size: 16px;
-            color: var(--primary-color);
-        }
-
-        .icon {
-            margin-right: 8px;
+        .section-title {
+            padding: 20px 20px 10px;
             font-size: 18px;
+            color: var(--primary);
+            font-weight: bold;
         }
 
-        .card-content {
-            font-size: 15px;
-            line-height: 1.5;
-            color: var(--text-sub);
+        /* 圖片網格佈局 */
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 兩欄 */
+            gap: 12px;
+            padding: 0 20px;
         }
 
-        .highlight-box {
-            background-color: #E8F5E9;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 5px;
+        .image-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover; /* 確保圖片填滿格線且不變形 */
+            display: block;
+        }
+
+        .image-caption {
+            padding: 6px;
+            font-size: 12px;
+            text-align: center;
+            color: #555;
+            background: #fff;
+        }
+
+        .info-card {
+            margin: 15px 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .info-item {
+            margin-bottom: 8px;
             font-size: 14px;
+            line-height: 1.5;
         }
-        
-        .highlight-box strong {
-            color: var(--primary-color);
+
+        .label {
+            font-weight: bold;
+            color: var(--primary);
         }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        <div class="header-image">
-            關山親水公園
+        <div class="header">關山親水公園導覽</div>
+
+        <div class="section-title">🌿 公園美景</div>
+        <div class="image-grid">
+            <div class="image-card">
+                <img src="http://googleusercontent.com/image_generation_content/3" alt="景點1">
+                <div class="image-caption">湖畔倒影</div>
+            </div>
+            <div class="image-card">
+                <img src="http://googleusercontent.com/image_generation_content/4" alt="景點2">
+                <div class="image-caption">景觀吊橋</div>
+            </div>
+            <div class="image-card">
+                <img src="http://googleusercontent.com/image_generation_content/5" alt="景點3">
+                <div class="image-caption">環鎮單車道</div>
+            </div>
+            <div class="image-card">
+                <img src="http://googleusercontent.com/image_generation_content/6" alt="景點4">
+                <div class="image-caption">生態池景</div>
+            </div>
         </div>
 
-        <div class="title-section">
-            <h1>園區導覽資訊</h1>
-        </div>
-
-        <div class="info-list">
-            
-            <div class="card">
-                <div class="card-header"><span class="icon">📍</span>地址</div>
-                <div class="card-content">台東縣關山鎮隆盛路 1 號</div>
-            </div>
-
-            <div class="card">
-                <div class="card-header"><span class="icon">⏰</span>開放時間</div>
-                <div class="card-content">每日 07:00 – 17:30<br><small>（實際開放時間依現場公告為準）</small></div>
-            </div>
-
-            <div class="card">
-                <div class="card-header"><span class="icon">🎫</span>門票</div>
-                <div class="card-content" style="color: #E53935; font-weight: bold;">
-                    免費入園<br><small style="color: var(--text-sub); font-weight: normal;">（自 2026/3/30 年起已全面取消收費）</small>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header"><span class="icon">🚗</span>交通方式</div>
-                <div class="card-content">
-                    <div class="highlight-box">
-                        <strong>🚆 大眾運輸：</strong><br>
-                        搭乘火車至「關山車站」，出站後步行約 1.2 公里，或於車站附近直接租借自行車/電動車前往。
-                    </div>
-                    <div class="highlight-box">
-                        <strong>🚙 自行開車：</strong><br>
-                        台九線約 333.2K 處東側轉入，園區設有免費停車場。
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header"><span class="icon">⏳</span>建議停留</div>
-                <div class="card-content">1.5 至 2 小時<br><small>（若結合環鎮自行車道騎乘，建議安排半天行程）</small></div>
-            </div>
-
+        <div class="section-title">📍 基本資訊</div>
+        <div class="info-card">
+            <div class="info-item"><span class="label">地址：</span>台東縣關山鎮隆盛路 1 號</div>
+            <div class="info-item"><span class="label">開放：</span>每日 07:00 – 17:30</div>
+            <div class="info-item"><span class="label">門票：</span><span style="color:red; font-weight:bold;">免費入園</span></div>
+            <div class="info-item"><span class="label">建議：</span>結合 12 公里環鎮自行車道遊玩</div>
         </div>
     </div>
 
@@ -172,5 +141,5 @@ app_html = """
 </html>
 """
 
-# 使用 Streamlit components 將 HTML 渲染出來，並設定適當的高度
-components.html(app_html, height=850, scrolling=True)
+# 使用 Streamlit 渲染
+components.html(app_html, height=800, scrolling=True)
