@@ -111,7 +111,7 @@ app_html = """
         <div class="section-title">🌿 公園美景</div>
         <div class="image-grid">
             <div class="image-card">
-                <img src="http://googleusercontent.com/image_generation_content/3" alt="景點1">
+                <img src="https://github.com/a0928866462-star/1234/blob/main/IMG_0771.JPG" alt="景點1">
                 <div class="image-caption">湖畔倒影</div>
             </div>
             <div class="image-card">
